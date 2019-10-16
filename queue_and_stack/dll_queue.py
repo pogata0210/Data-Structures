@@ -9,12 +9,14 @@ class Queue:
         # Why is our DLL a good choice to store our elements?
         # self.storage = ?
         self.storage = DoublyLinkedList()
+        
+        #This data structure is FIFO
 
-    def enqueue(self, value):
+    def enqueue(self, value): #add value 
         self.storage.add_to_tail(value)
         self.size += 1
 
-    def dequeue(self):
+    def dequeue(self): #taje a way from last item
         if self.size ==0:
             return
         self.size -=1

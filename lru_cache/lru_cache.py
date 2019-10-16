@@ -1,3 +1,16 @@
+from doubly_linked_list import DoublyLinkedList
+
+#there is a capacity inside of a storage
+
+
+#initiate this method by creating dubmmy header and dummy tail
+#DH, DT
+#put key  and value of 1
+#DH, 1, DT
+#put 2 3
+#DH, 3, 1, DT
+#the recent inserted one goes to the front.
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +20,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.current_size = 0
+        self.storage = DoublyLinkedList()
+        self.dict = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +33,19 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        
+        if key in self.dict:
+            node = self.dict[key]
+            self.storage.move_to_front(node)
+
+            return node.value[1]
+
+        return None
+#        current_done = self.storage.head
+#        next_node = self.storage.head.next
+#       
+#        if current_node.key == key:
+#           self.sotrage.move_to_end(current_node)
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +58,20 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        
+        if key in self.dict:
+            node = self.dict[key]
+            self.storage.move_to_front(node)
+            node.value = (key, value)
+            
+            return
+
+        if self.current_size == self.limit:
+           
+            del self.dict[self.storage.tail.value[0]]
+            self.storage.remove_from_tail()
+            self.current_size -= 1
+
+            self.storage.add_to_head((key, value))
+            self.dict[key] = self.storage.head
+            self.current_size += 1

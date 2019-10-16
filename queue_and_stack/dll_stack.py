@@ -8,6 +8,7 @@ class Stack:
         # Why is our DLL a good choice to store our elements?
         # self.storage = ?
         self.storage = DoublyLinkedList()
+         #This data structure is LIFO
 
     def push(self, value): #add item to head
         self.storage.add_to_head(value)
